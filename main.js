@@ -158,8 +158,21 @@ const gridHelper = new THREE.GridHelper( 100, 50 );
 gridHelper.rotateX(Math.PI / 2)
 scene.add( gridHelper );
 
-let position = new THREE.Vector3(5.0, 5.0, 5.0)
-let star = new Star(position)
-star.toThreeObject(scene)
+function gaussianRandom(mean=0, stdev=1) {
+    let u = 1 - Math.random()
+    let v = Math.random()
+    let z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v)
+
+    return z * stdev + mean
+}
+
+let mean = 0
+let stdev = 20
+
+for ( let i = 0; i < 100 ; i++) {
+    let pos = new THREE.Vector3(gaussianRandom(mean, stdev), gaussianRandom(mean, stdev), gaussianRandom(mean, stdev))
+    let star = new Star(pos)
+    star.toThreeObject(scene)
+}
 
 requestAnimationFrame(render)

@@ -13,6 +13,8 @@ export class Star {
     toThreeObject(scene) {
         let star = new THREE.Sprite(material)
         star.layers.set(BLOOM_LAYER)
+
+        star.scale.multiplyScalar(0.5)
         star.position.copy(this.position)
 
         this.obj = star
