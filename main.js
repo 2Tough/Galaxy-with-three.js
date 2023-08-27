@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import {NUM_STARS, GALAXY_THICKNESS, CORE_X_DIST, CORE_Y_DIST} from "./config/galaxyConfig.js"
 
 // Data and visualization
 import { CompositionShader} from './shaders/CompositionShader.js'
@@ -154,9 +155,6 @@ initThree()
 let axes = new THREE.AxesHelper(5.0)
 scene.add(axes)
 
-const gridHelper = new THREE.GridHelper( 100, 50 );
-gridHelper.rotateX(Math.PI / 2)
-scene.add( gridHelper );
 
 function gaussianRandom(mean=0, stdev=1) {
     let u = 1 - Math.random()
@@ -166,11 +164,10 @@ function gaussianRandom(mean=0, stdev=1) {
     return z * stdev + mean
 }
 
-let mean = 0
-let stdev = 20
 
-for ( let i = 0; i < 100 ; i++) {
-    let pos = new THREE.Vector3(gaussianRandom(mean, stdev), gaussianRandom(mean, stdev), gaussianRandom(mean, stdev))
+
+for ( let i = 0; i < NUM_STARS ; i++) {
+    let pos = new THREE.Vector3(gaussianRandom(0, CORE_X_DIST), gaussianRandom(0, CORE_Y_DIST), gaussianRandom(0, GALAXY_THICKNESS))
     let star = new Star(pos)
     star.toThreeObject(scene)
 }
